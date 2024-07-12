@@ -1,6 +1,8 @@
 import os
 
-restaurantes = []
+restaurantes = [{'nome':'Praça', 'categoria':'Japonesa','ativo':False},
+                {'nome':'Pizza Suprema', 'categoria':'Pizza','ativo':True},
+                {'nome':'Cantina', 'categoria':'Italiano','ativo':False}]
 
 def exibir_nome_programa():
     print("""
@@ -34,18 +36,22 @@ def opcao_invalida():
     print('Opção Inválida!')
     menu_principal()
 
-
 def cadastrar_novo_restaurante():
     exibir_subtitulo('Cadastro de Novos Restaurantes')
     nome_do_restaurante = input('Digite o nome do restaurante que deseja cadastrar: ')
-    restaurantes.append(nome_do_restaurante)
-    print(f'Restaurante {nome_do_restaurante} cadastrado com sucesso!')
+    categoria = input(f'Digite a categoria do restaurante {nome_do_restaurante}: ')
+    dados_restaurante = {'nome':nome_do_restaurante, 'categoria':categoria, 'ativo':False}
+    restaurantes.append(dados_restaurante)
+    print(f'Restaurante {nome_do_restaurante} cadastrado com sucesso na categoria {categoria}!')
     menu_principal()
 
 def listar_restaurante():
     exibir_subtitulo('Listando todos os restaurantes')
     for restaurante in restaurantes:
-        print(f'.{restaurante}')
+        nome_restaurante = restaurante['nome']
+        categoria = restaurante['categoria']
+        restaurante_ativo = restaurante['ativo']
+        print(f'Restaurante: {nome_restaurante} | {categoria} | {"Ativo" if restaurante_ativo else "Inativo"}')
     menu_principal()
 
 def ativar_restaurante():
@@ -66,6 +72,7 @@ def escolher_opcao():
             opcao_invalida()
     except:
         opcao_invalida()
+
 def main():
     os.system('cls')
     exibir_nome_programa()
